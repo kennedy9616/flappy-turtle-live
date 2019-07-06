@@ -16,8 +16,10 @@ end
 
 -- DESENHAR CANUDO
 function drawCanudo(a,tipo)
-	love.graphics.polygon(tipo or "line", a.body:getWorldPoints(a.shape:getPoints()))
+    love.graphics.draw(images_canudo, a.body:getX()+60,a.body:getY()-250, 0 ,1,1, 90 ,0)
+    love.graphics.setColor(1,1,1)	
+    love.graphics.polygon(tipo or "line", a.body:getWorldPoints(a.shape:getPoints()))
+    
 end
-
 
 return {}

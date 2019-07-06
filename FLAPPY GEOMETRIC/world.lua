@@ -1,15 +1,21 @@
 retangulo = require "mundo/objetos/retangulos"	--RETOMA O ARQUIVO QUE CRIA OBJETOS 
 canudo = require "inimigo"	--RETOMA O ARQUIVO QUE CRIA INIMIGOS 
+
 audio_back = love.audio.newSource("sounds/backSound.mp3", "stream")
+
 tempo = 0
 score = 0
 variacao = 0
 
 function worldLoad()
+	--[[MUSICA DE FUNDO]]
 	audio_back:setLooping(true)
 	audio_back:play()
 	--audio_back:setPitch(0.5) -- one octave lower
 	audio_back:setVolume(1)
+
+	background = love.graphics.newImage("images/mar.png")
+
 	love.graphics.setBackgroundColor(0,0.3,0.6)
 	retangulo1(retangulo, 400,575,800,50, "inimigo") 
 	--[[CRIA RETANGULO INFERIOR DA TELA 
@@ -17,9 +23,6 @@ function worldLoad()
 	retangulo1(retangulo, 400, -26,800,50)
 	--[[ RETANGULO SUPERIOR PARA O PERSONAGEM 
 	NÃO SAIR DA TELA --]]
-	while player.isdeath == true do
-
-	end
 end 
 
 
@@ -50,12 +53,12 @@ function worldUpdate(dt)
 		--MOVIMENTAÇÃO DOS RETANGULOS
 	--[[NESSE "for" ELE FAZ QUE OS RETANGULOS MUDE DE POSIÇÃO POR SEGUNDO
 	E MUTIPLICA PELA VELOCIDADE DO CANUDO]]
-		local x, y = canudo[i].body:getPosition()
+		x, y = canudo[i].body:getPosition()
 		canudo[i].body:setPosition(x-dt*canudo[i].speed,y)
 	end
 	for i=1, #canudo do -- PARA CADA CANUDO
 		if canudo[i] then
-			local x, y = canudo[i].body:getPosition() --[[AQUI É PEGO O X E Y 
+			x, y = canudo[i].body:getPosition() --[[AQUI É PEGO O X E Y 
 			DOS CANUDOS E FEITO UM IF (SE A POSIÇÃO X DO CANUDO FOR MENOR QUE A POSIÇÃO
 		DO PLAYER, FAÇA QUE SCORE SEJA IMPLEMENTADO ) ]]
 			if x < player.posInicialX and not canudo[i].scored then
@@ -85,16 +88,27 @@ end
 
 function worldDraw()
 	
-	for i=1, #retangulo do -- DESENHANDO TODOS OS RETANGULOS
-		drawRetangulo(retangulo[i], "fill")
-	end
+	for i = 0, love.graphics.getWidth() / background:getWidth() do
+        for j = 0, love.graphics.getHeight() / background:getHeight() do
+            love.graphics.draw(background, i * background:getWidth(), j * background:getHeight())
+        end
+    end
+
 	for i=1, #canudo do -- DESENHANDO TODOS OS CANUDOS
 		if canudo[i] then
-			drawCanudo(canudo[i],"line")
-			drawCanudo(canudo[i],"fill")
+			drawCanudo(canudo[i])	
 		end
-	end
+	end 
+	for i=1, #retangulo do -- DESENHANDO TODOS OS RETANGULOS
+		love.graphics.setColor(0.8,0.6,0)
+		drawRetangulo(retangulo[i], "fill")
+		love.graphics.setColor(1,1,1)
+	end	
+	
+
 end
+
+images_canudo =    love.graphics.newImage("images/canudo.png")
 
 metro = 64
 love.physics.setMeter(metro)

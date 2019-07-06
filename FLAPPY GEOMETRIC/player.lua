@@ -3,6 +3,7 @@ audio_jump = love.audio.newSource("sounds/playerJump.mp3", "stream")
 audio_lose = love.audio.newSource("sounds/playerLose.mp3", "stream")
 audio_fail = love.audio.newSource("sounds/failSound.mp3", "stream")
 function playerLoad()
+
     audio_jump:setLooping(true)
     audio_jump:setVolume(0.1)
     audio_jump:play()
@@ -23,7 +24,8 @@ function love.keypressed( key )
     if key == "space" then
         player.body:setLinearVelocity(0,0)
         player.body:applyForce(0,-player.salto)
-        audio_jump:play()
+
+        audio_jump:play() -- AUDIO DE SALTO 
     end
  end
 
@@ -32,16 +34,20 @@ function love.keypressed( key )
 function playerUpdate(dt)
     if player.fixture:getUserData()=="morto" then
         player.isdeath = true
-        audio_lose:play()
+
+        audio_lose:play() -- AUDIO DE MORTE LOSE 
+        
         if audio_lose:play() then
-        audio_fail:play()
+
+            audio_fail:play() -- AUDIO DE MORTE 
+
         end
     end
-   --anim8:update(dt/1.5)
 end 
 
 function playerDraw()
-    love.graphics.draw( images,player.body:getX()-20,player.body:getY()-20 )
+    drawRetangulo(player)
+    love.graphics.draw(images,player.body:getX()+70*player.scaleX,player.body:getY()-20*player.scaleY, 0 , player.scaleX, player.scaleY, 90, 0)
 
 end 
 
@@ -62,9 +68,13 @@ player.isdynamic = false
 player.isdeath = false 
 player.menudeath = false
 
+local fps = 15
+local anim_timer = 1
+local frame = 1
+local num_frames = 6
+local xoffset
+
 images =    love.graphics.newImage("images/turtle.png")
-local g = anim8.newGrid(40,40,images:getWidth(),images:getHeight())
---anim8 = anim8.newAnimation(g('1-5',1,'1-5',2,'1-5',3,'1-5',4,'1-4',5),0.1)
 
 player.body = love.physics.newBody(mundo, player.posInicialX, player.posInicialY , 'static')
 player.shape = love.physics.newRectangleShape(player.tamanhoX*player.scaleX,player.tamanhoY*player.scaleY)

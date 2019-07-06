@@ -13,6 +13,7 @@ function drawRetangulo(a,tipo)
 end
 
 function retangulo1 (retangulo, posx, posy, largura, altura, name)
+	love.graphics.setColor(0.8,0.6,0)
 	retangulo[#retangulo + 1] = newRetangulo(posx,posy,largura,altura, name) 
 end
 return {}

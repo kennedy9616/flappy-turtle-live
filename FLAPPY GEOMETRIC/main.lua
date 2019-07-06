@@ -38,8 +38,10 @@ function love.update(dt)
 	POIS A COMPARAÇÃO NÃO CORRESPONDE O IF ]]
 	if (player.isdynamic) and not player.isdeath then
 		player.body:setType("dynamic")
+		
 		worldUpdate(dt)
 		playerUpdate(dt)
+
 		audio_back:play()
 
 	elseif player.isdeath then 
@@ -66,7 +68,7 @@ end
 function love.draw()
 	worldDraw()
 	playerDraw()
-	love.graphics.print(" SCORE: "..score, 30,30,0,2.5,2.5)
+	love.graphics.print("LIVE TURTLES: "..score, 30,45,0,1.5,1.5)
 	--[[NESSE IF É SO PARA APARECER ANTES DO JOGO A PALAVRA "PRESS SPACE",
 	ISSO SO FUNCIONA POIS ENQUANTO A TECLA "SPACE" NÃO FOR APERTADA
 	PLAYER.ISDYNAMIC == FALSE ]]
@@ -78,19 +80,20 @@ function love.draw()
 --[[É CHAMADO DEPOIS QUE O PLAYER MORRER, DESENHARÁ OS RETANGULOS COM
 INFORMAÇÕES NA TELA ]]
 	if player.menudeath then 
-			love.graphics.setColor(0.8,0.8,0.8)
+			love.graphics.setColor(0.8,0.1,0.1)
 			drawRetangulo(retangulomorte1,"fill")
-			love.graphics.setColor(0,0,0)
+			love.graphics.setColor(1,1,1)
 			drawRetangulo(retangulomorte2,"line")
 			drawRetangulo(retangulomorte3,"line")
 			drawRetangulo(retangulomorte4,"line")
 			drawRetangulo(retangulomorte5,"line" )
 			love.graphics.setColor(1,1,1)
-			love.graphics.print("GAME OVER",315,200,0,2,2)
-			love.graphics.print("  ESC  ",345,275,0,2,2)
-			love.graphics.print("FOR EXIT",340,305,0,2,2)
-			love.graphics.print(" ENTER ",345,375,0,2,2)
-			love.graphics.print("FOR RESTART",310,405,0,2,2)
+			love.graphics.print("GAME OVER",320,190,0,2,2)
+			love.graphics.print("  ESC  ",345,270,0,2,2)
+			love.graphics.print("FOR EXIT",340,300,0,2,2)
+			love.graphics.print(" ENTER ",345,370,0,2,2)
+			love.graphics.print("FOR RESTART",310,400,0,2,2)
+			love.graphics.setColor(1,1,1)
 
 	end
 
