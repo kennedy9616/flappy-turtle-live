@@ -27,7 +27,7 @@ function love.update(dt)
 			love.event.quit()
 		end
 	end --]]
-	--[[DEPOIS QUE O PLAYER MORRER A TECLA ESPAÇO SERVE PARA 
+	--[[DEPOIS QUE O PLAYER MORRER A TECLA "ENTER" SERVE PARA 
 	... RECOMEÇAR O JOGO ]]
 	if love.keyboard.isDown("return") then 
 		if player.menudeath then
@@ -43,8 +43,8 @@ function love.update(dt)
 		playerUpdate(dt)
 
 		audio_back:play()
-
 	elseif player.isdeath then 
+	--elseif player.vida == 0 then 
 		--[[MAS SE O PLAYER MORRER, ATRAVES DESSE IF O MENU DE MORTE É
 		ATIVADO CHAMANDO OS QUADROS COM A INFORMAÇÃO ]]
 		audio_back:stop()
@@ -69,6 +69,7 @@ function love.draw()
 	worldDraw()
 	playerDraw()
 	love.graphics.print("LIVE TURTLES: "..score, 30,45,0,1.5,1.5)
+	--love.graphics.print("VIDA: "..player.vida.."%", 30 , 75 , 0 , 1.5 ,1.5)
 	--[[NESSE IF É SO PARA APARECER ANTES DO JOGO A PALAVRA "PRESS SPACE",
 	ISSO SO FUNCIONA POIS ENQUANTO A TECLA "SPACE" NÃO FOR APERTADA
 	PLAYER.ISDYNAMIC == FALSE ]]

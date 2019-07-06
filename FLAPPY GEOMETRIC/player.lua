@@ -53,8 +53,7 @@ end
 
 player = {}
 
-player.vida = false 
-player.vidaMax = player.vida
+player.vida = 100
 
 player.posInicialX = 300
 player.posInicialY = 300
