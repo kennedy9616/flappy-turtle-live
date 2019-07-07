@@ -17,7 +17,7 @@ function worldLoad()
 	background = love.graphics.newImage("image/beach.png") -- IMAGEM DE FUNDO 
 
 	love.graphics.setBackgroundColor(0,0.3,0.6)
-	rectangle1(rectangle, 400,575,800,50, "inimigo") 
+	rectangle1(rectangle, 400,575,800,50, "enemy") 
 	--[[CRIA RETANGULO INFERIOR DA TELA 
 	É UM RETANGULO INIMIGO, SIGNIFICA QUE SE O PERSONAGEM TOCAR MORRE ]]
 	rectangle1(rectangle, 400, -26,800,50)
@@ -31,7 +31,8 @@ function worldUpdate(dt)
 	 + A VARIAÇÃO, QUE INICIALMENTE É 0 ... E ENQUANTO O SCORE FOR %5 == 0 ELE ADCIONA 
 	 8 QUE É DIVIDIDO POR UM NUREMO BEM ALTO, JÁ QUE O ENCREMENTO OCORRE EM SEGUNDOS ]]
 	
-	 time = time + dt*1.2 + variation/100000	
+	 time = time + dt*1.2 + variation/10000 --[[A MUTIPLICAÇÃO AUMENTA
+	 A DIVISÃO DIMINUI, SE QUISER DEIXAR A VARIAÇÃO MAIOR .. SO DIMINUIR O DENOMINADOR]]
 
 	world:update(dt)
 	world:setCallbacks(beginContact, endContact, preSolve, postSolve)
@@ -40,7 +41,7 @@ function worldUpdate(dt)
 		--[[QUANDO O TEMPO FOR DIVISIVEL POR 3,
 		ELE ENTRA NO IF, FAZ QUE A VARIAVEL SPAWNED, SEJA FALSA]]
 		local spawned = false 
-		local posy = math.random(370)-240 --[[A POSIÇÃO É DADA PELO MATH.RANDOM
+		local posy = math.random(397) - 240 --[[A POSIÇÃO É DADA PELO MATH.RANDOM
 		... MENOS UMA VARIÇÃO PARA QUE OS CANUDOS ... TENHAM UM ESPAÇO PARA QUE O PLAYER
 		CONSIGA PASSAR ]]
 		if not spawned then	
@@ -71,7 +72,7 @@ function worldUpdate(dt)
 				PORQUE ELE PEGA A POSIÇÃO DOS DOIS RETANGULOS E IMPLEMENTA...
 				NO CASO SE FOSSE 1 ... ELE CONTARIA DE 2 EM 2 ]]
 				score = score + (1/2)
-				if score%5 == 0 and variation < 60 then 
+				if score%5 == 0 and variation < 64 then 
 					--[[DIMINUINDO VARIACAO DE PASSAGEM DOS CANUDOS, POREM SE A VARIAÇÃO 
 					FOR MAIOR QUE 60 .. ELE PARA POIS EH O ESPAÇO MAXIMO ONDE O PLAYER AINDA POSSA 
 					PASSAR SEM MORRER . ]]
